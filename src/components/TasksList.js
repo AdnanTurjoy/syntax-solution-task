@@ -1,20 +1,20 @@
 import React, { useState /*, useEffect */ } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import TutorialDataService from "../services/TutorialService";
-import Tutorial from "./Tutorial";
+import TaskDataService from "../services/TaskService";
+import Task from "./Task";
 
-const TutorialsList = () => {
-  const [currentTutorial, setCurrentTutorial] = useState(null);
+const TasksList = () => {
+  const [currentTask, setCurrentTask] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const [tasks, loading, error] = useCollection(
-    TutorialDataService.getAll().orderBy("title", "asc")
+    TaskDataService.getAll().orderBy("title", "asc")
   );
 
-  const setActiveTutorial = (task, index) => {
+  const setActiveTask = (task, index) => {
     const { title, paragraph } = task.data();
 
-    setCurrentTutorial({
+    setCurrentTask({
       id: task.id,
       title,
       paragraph,
@@ -26,7 +26,7 @@ const TutorialsList = () => {
   return (
     <div className="list row">
       <div className="col-md-6">
-        <h4>Tutorials List</h4>
+        <h4>Tasks List</h4>
         {error && <strong>Error: {error}</strong>}
         {loading && <span>Loading...</span>}
         <ul className="list-group">
@@ -37,7 +37,7 @@ const TutorialsList = () => {
                 className={
                   "list-group-item " + (index === currentIndex ? "active" : "")
                 }
-                onClick={() => setActiveTutorial(task, index)}
+                onClick={() => setActiveTask(task, index)}
                 key={task.id}
               >
                 {task.data().title}
@@ -47,12 +47,12 @@ const TutorialsList = () => {
         </ul>
       </div>
       <div className="col-md-6">
-        {currentTutorial ? (
-          <Tutorial task={currentTutorial} />
+        {currentTask ? (
+          <Task task={currentTask} />
         ) : (
           <div>
             <br />
-            <p>Please click on a Tutorial...</p>
+            <p>Please click on a Task...</p>
           </div>
         )}
       </div>
@@ -60,4 +60,4 @@ const TutorialsList = () => {
   );
 };
 
-export default TutorialsList;
+export default TasksList;

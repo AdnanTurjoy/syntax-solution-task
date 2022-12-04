@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import TutorialDataService from "../services/TutorialService";
+import TaskDataService from "../services/TaskService";
 
-const AddTutorial = () => {
-  const initialTutorialState = {
+const AddTask = () => {
+  const initialTaskState = {
     title: "",
     paragraph: "",
   };
-  const [task, setTutorial] = useState(initialTutorialState);
+  const [task, setTask] = useState(initialTaskState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setTutorial({ ...task, [name]: value });
+    setTask({ ...task, [name]: value });
   };
 
-  const saveTutorial = () => {
+  const saveTask = () => {
     var data = {
       title: task.title,
       paragraph: task.paragraph,
-      // published: false
     };
     console.log(data);
-    TutorialDataService.create(data)
+    TaskDataService.create(data)
       .then(() => {
         setSubmitted(true);
       })
@@ -30,8 +29,8 @@ const AddTutorial = () => {
       });
   };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
+  const newTask = () => {
+    setTask(initialTaskState);
     setSubmitted(false);
   };
 
@@ -40,7 +39,7 @@ const AddTutorial = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newTutorial}>
+          <button className="btn btn-success" onClick={newTask}>
             Add
           </button>
         </div>
@@ -72,7 +71,7 @@ const AddTutorial = () => {
             />
           </div>
 
-          <button onClick={saveTutorial} className="btn btn-success">
+          <button onClick={saveTask} className="btn btn-success">
             Submit
           </button>
         </div>
@@ -81,4 +80,4 @@ const AddTutorial = () => {
   );
 };
 
-export default AddTutorial;
+export default AddTask;

@@ -1,33 +1,33 @@
 import React, { useState } from "react";
-import TutorialDataService from "../services/TutorialService";
+import TaskDataService from "../services/TaskService";
 
-const Tutorial = (props) => {
-  const initialTutorialState = {
+const Task = (props) => {
+  const initialTaskState = {
     key: null,
     title: "",
     paragraph: "",
   };
-  const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
+  const [currentTask, setCurrentTask] = useState(initialTaskState);
   const [message, setMessage] = useState("");
 
   const { task } = props;
-  if (currentTutorial.id !== task.id) {
-    setCurrentTutorial(task);
+  if (currentTask.id !== task.id) {
+    setCurrentTask(task);
     setMessage("");
   }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCurrentTutorial({ ...currentTutorial, [name]: value });
+    setCurrentTask({ ...currentTask, [name]: value });
   };
 
-  const updateTutorial = () => {
+  const updateTask = () => {
     const data = {
-      title: currentTutorial.title,
-      paragraph: currentTutorial.paragraph,
+      title: currentTask.title,
+      paragraph: currentTask.paragraph,
     };
 
-    TutorialDataService.update(currentTutorial.id, data)
+    TaskDataService.update(currentTask.id, data)
       .then(() => {
         setMessage("The task was updated successfully!");
       })
@@ -36,8 +36,8 @@ const Tutorial = (props) => {
       });
   };
 
-  const deleteTutorial = () => {
-    TutorialDataService.remove(currentTutorial.id)
+  const deleteTask = () => {
+    TaskDataService.remove(currentTask.id)
       .then(() => {
         props.refreshList();
       })
@@ -48,9 +48,9 @@ const Tutorial = (props) => {
 
   return (
     <div>
-      {currentTutorial ? (
+      {currentTask ? (
         <div className="edit-form">
-          <h4>Tutorial</h4>
+          <h4>Task</h4>
           <form>
             <div className="form-group">
               <label htmlFor="title">Title</label>
@@ -59,7 +59,7 @@ const Tutorial = (props) => {
                 className="form-control"
                 id="title"
                 name="title"
-                value={currentTutorial.title}
+                value={currentTask.title}
                 onChange={handleInputChange}
               />
             </div>
@@ -70,20 +70,20 @@ const Tutorial = (props) => {
                 className="form-control"
                 id="paragraph"
                 name="paragraph"
-                value={currentTutorial.paragraph}
+                value={currentTask.paragraph}
                 onChange={handleInputChange}
               />
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
+          <button className="badge badge-danger mr-2" onClick={deleteTask}>
             Delete
           </button>
 
           <button
             type="submit"
             className="badge badge-success"
-            onClick={updateTutorial}
+            onClick={updateTask}
           >
             Update
           </button>
@@ -92,11 +92,11 @@ const Tutorial = (props) => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Tutorial...</p>
+          <p>Please click on a Task...</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Tutorial;
+export default Task;

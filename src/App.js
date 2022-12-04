@@ -3,8 +3,8 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AddTutorial from "./components/AddTutorial";
-import TutorialsList from "./components/TutorialsList";
+import AddTask from "./components/AddTask";
+import TasksList from "./components/TasksList";
 
 function App() {
   return (
@@ -30,8 +30,8 @@ function App() {
       <div className="container mt-3">
         <h2>Admin Panel</h2>
         <Switch>
-          <Route exact path={["/", "/tasks"]} component={TutorialsList} />
-          <Route exact path="/add" component={AddTutorial} />
+          <Route exact path={["/", "/tasks"]} component={TasksList} />
+          <Route exact path="/add" component={AddTask} />
         </Switch>
       </div>
     </div>
