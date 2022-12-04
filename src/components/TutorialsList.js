@@ -7,17 +7,15 @@ const TutorialsList = () => {
   const [currentTutorial, setCurrentTutorial] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
-  const [tutorials, loading, error] = useCollection(
+  const [tasks, loading, error] = useCollection(
     TutorialDataService.getAll().orderBy("title", "asc")
   );
 
-
-
-  const setActiveTutorial = (tutorial, index) => {
-    const { title, paragraph } = tutorial.data();
+  const setActiveTutorial = (task, index) => {
+    const { title, paragraph } = task.data();
 
     setCurrentTutorial({
-      id: tutorial.id,
+      id: task.id,
       title,
       paragraph,
     });
@@ -33,24 +31,24 @@ const TutorialsList = () => {
         {loading && <span>Loading...</span>}
         <ul className="list-group">
           {!loading &&
-            tutorials &&
-            tutorials.docs.map((tutorial, index /* tutorials.map */) => (
+            tasks &&
+            tasks.docs.map((task, index /* tasks.map */) => (
               <li
                 className={
                   "list-group-item " + (index === currentIndex ? "active" : "")
                 }
-                onClick={() => setActiveTutorial(tutorial, index)}
-                key={tutorial.id}
+                onClick={() => setActiveTutorial(task, index)}
+                key={task.id}
               >
-                {tutorial.data().title}
-                {/*tutorial.title*/}
+                {task.data().title}
+                {/*task.title*/}
               </li>
             ))}
         </ul>
       </div>
       <div className="col-md-6">
         {currentTutorial ? (
-          <Tutorial tutorial={currentTutorial} />
+          <Tutorial task={currentTutorial} />
         ) : (
           <div>
             <br />

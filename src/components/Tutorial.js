@@ -6,14 +6,13 @@ const Tutorial = (props) => {
     key: null,
     title: "",
     paragraph: "",
-
   };
   const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
   const [message, setMessage] = useState("");
 
-  const { tutorial } = props;
-  if (currentTutorial.id !== tutorial.id) {
-    setCurrentTutorial(tutorial);
+  const { task } = props;
+  if (currentTutorial.id !== task.id) {
+    setCurrentTutorial(task);
     setMessage("");
   }
 
@@ -21,8 +20,6 @@ const Tutorial = (props) => {
     const { name, value } = event.target;
     setCurrentTutorial({ ...currentTutorial, [name]: value });
   };
-
-
 
   const updateTutorial = () => {
     const data = {
@@ -32,7 +29,7 @@ const Tutorial = (props) => {
 
     TutorialDataService.update(currentTutorial.id, data)
       .then(() => {
-        setMessage("The tutorial was updated successfully!");
+        setMessage("The task was updated successfully!");
       })
       .catch((e) => {
         console.log(e);
@@ -77,8 +74,6 @@ const Tutorial = (props) => {
                 onChange={handleInputChange}
               />
             </div>
-
-            
           </form>
 
           <button className="badge badge-danger mr-2" onClick={deleteTutorial}>

@@ -6,18 +6,18 @@ const AddTutorial = () => {
     title: "",
     paragraph: "",
   };
-  const [tutorial, setTutorial] = useState(initialTutorialState);
+  const [task, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setTutorial({ ...tutorial, [name]: value });
+    setTutorial({ ...task, [name]: value });
   };
 
   const saveTutorial = () => {
     var data = {
-      title: tutorial.title,
-      paragraph: tutorial.paragraph,
+      title: task.title,
+      paragraph: task.paragraph,
       // published: false
     };
     console.log(data);
@@ -53,7 +53,7 @@ const AddTutorial = () => {
               className="form-control"
               id="title"
               required
-              value={tutorial.title}
+              value={task.title}
               onChange={handleInputChange}
               name="title"
             />
@@ -66,7 +66,7 @@ const AddTutorial = () => {
               className="form-control"
               id="paragraph"
               required
-              value={tutorial.paragraph}
+              value={task.paragraph}
               onChange={handleInputChange}
               name="paragraph"
             />
