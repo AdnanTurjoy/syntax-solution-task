@@ -14,6 +14,7 @@ import Header from "./components/Header";
 export const AuthProvider = createContext();
 function App() {
   const [admin, setAdmin] = useState(false);
+  const [userLoggedIn,setUserLoggedIn]= useState(false);
   return (
     <>
       {admin ? (
@@ -48,7 +49,7 @@ function App() {
 
           <div className="container mt-3">
             <h2>Admin Panel</h2>
-            <AuthProvider.Provider value={[admin, setAdmin]}>
+            <AuthProvider.Provider value={{admin, setAdmin,userLoggedIn,setUserLoggedIn}}>
               <Switch>
                 <Route exact path={"/tasks"} component={TasksList} />
                 <Route exact path="/add" component={AddTask} />
@@ -60,7 +61,7 @@ function App() {
         </div>
       ) : (
         <>
-          <AuthProvider.Provider value={[admin, setAdmin]}>
+          <AuthProvider.Provider value={{admin, setAdmin,userLoggedIn,setUserLoggedIn}}>
             <Header />
             <Switch>
               <Route exact path="/" component={Home} />
@@ -69,7 +70,7 @@ function App() {
           </AuthProvider.Provider>
         </>
       )}
-      <AuthProvider.Provider value={[admin, setAdmin]}>
+      <AuthProvider.Provider value={{admin, setAdmin,userLoggedIn,setUserLoggedIn}}>
         <Switch>
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />

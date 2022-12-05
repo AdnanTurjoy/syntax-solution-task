@@ -7,7 +7,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const history = useHistory();
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -29,16 +29,16 @@ function SignUp() {
             setName("");
             setEmail("");
             setPassword("");
-            setError(false);
+            setError("");
             history.push("/login");
           })
           .catch((error) => {
-            setError(true);
+            setError(error.message);
           });
       })
       .catch((error) => {
-        console.log(error.message);
-        setError(true);
+        //console.log(error.message);
+        setError(error.message);
       });
   };
   return (
@@ -104,13 +104,11 @@ function SignUp() {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                         </div>
-                        {error && (
-                          <p className="danger">Atleast 8 digit needed</p>
-                        )}
+                        {error && <p className="danger">{error}</p>}
                         <Link to={"/login"}>
                           <p>
                             Already have a acoount?{" "}
-                            <button className="btn-sm btn-success">
+                            <button className="badge badge-info">
                               Login
                             </button>
                           </p>

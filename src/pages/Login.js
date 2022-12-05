@@ -12,7 +12,8 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const [errorMsg, setErrorMsg] = useState("");
-  const [admin, setAdmin] = useContext(AuthProvider);
+  const { admin, setAdmin, userLoggedIn, setUserLoggedIn } =
+    useContext(AuthProvider);
   const handleLogin = (e) => {
     e.preventDefault();
     auth
@@ -26,6 +27,7 @@ function Login(props) {
           setAdmin(true);
         } else if (user.email !== "admin@gmail.com") {
           setAdmin(false);
+          setUserLoggedIn(true);
         }
         history.push("/");
       })
@@ -100,7 +102,7 @@ function Login(props) {
                       <Link to={"/signup"}>
                         <p className="text-success">
                           Don't have a acoount?{" "}
-                          <button className="btn-sm btn-success">Signup</button>
+                          <button className="badge badge-info">Signup</button>
                         </p>
                       </Link>
 

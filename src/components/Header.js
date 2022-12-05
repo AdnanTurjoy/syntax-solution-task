@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { AuthProvider } from "../App";
 import "../css/style.css";
 function Header(props) {
+  const { admin, setAdmin, userLoggedIn, setUserLoggedIn } =
+    useContext(AuthProvider);
+  const history = useHistory();
+  const handleLogout = () => {
+    setAdmin(false);
+    setUserLoggedIn(false);
+    history.push("/login");
+  };
   return (
     <div>
       <header id="header" className="fixed-top d-flex align-items-center">
@@ -42,16 +51,27 @@ function Header(props) {
               <li>
                 <a href="contact.html">Contact</a>
               </li>
-              <li>
-                <Link to={"/login"} className="getstarted">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to={"/signup"} className="getstarted">
-                  Sign Up
-                </Link>
-              </li>
+              {!userLoggedIn ? (
+                <>
+                  {" "}
+                  <li>
+                    <Link to={"/login"} className="getstarted">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/signup"} className="getstarted">
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link onClick={handleLogout} className="getstarted">
+                    Log Out
+                  </Link>
+                </li>
+              )}
             </ul>
             <i className="bi bi-list mobile-nav-toggle"></i>
           </nav>
